@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		
+		<link rel="stylesheet" href="css/skyblue.css">
+		
+		<style>
+			.spin {
+				animation: spin 1s linear infinite;
+			}
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				50% { transform: rotate(180deg); }
+				100% { transform: rotate(360deg); }
+			}
+
+			.width-40pc {
+				width: 40%;
+			}
+			.width-20pc {
+				width: 20%;
+			}
+		</style>
+				
+		<title>仮称</title>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col md-7">
+				<h1>仮称</h1>
+			</div>
+			
+			<div class="col md-5" id="searchForm">
+				<input class="form-control" type="text" placeholder="三島良直 / msmysno / 学長 / ..." id="searchBox">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col md-12">
+				<table class="table" id="table">
+					<thead>
+						<th class="width-40pc">名前</th>
+						<th class="width-40pc">評判</th>
+						<th class="width-20pc">詳しく見る</th>
+					</thead>
+					<tbody>
+					<tr>
+						<td><span class="icon-refresh-2 spin"></span></td>
+						<td><span class="icon-refresh-2 spin"></span></td>
+						<td><span class="icon-refresh-2 spin"></span></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<script>
+			let searchBox = document.getElementById("searchBox");
+			searchBox.init = function () {
+				this.addEventListener("keyup", () => table.select(this.value));
+			}
+			
+			let table = document.getElementById("table");
+			table.init = function () {
+				this.deleteRow(1);
+				data.forEach((element, index, array) => {
+					let newRow = this.insertRow(-1);
+					let newCell;
+					newCell = newRow.insertCell(-1);
+					newCell.appendChild(document.createTextNode(element.displayName));
+					let reputation = element.scores.positive / (element.scores.positive + element.scores.negative);
+					newCell = newRow.insertCell(-1);
+					newCell.appendChild(document.createTextNode(reputation.toString()));
+					newCell = newRow.insertCell(-1);
+					newCell.appendChild(document.createTextNode("詳しく見る"));
+				});
+				searchBox.init();
+			}
+			table.select = function (keyword) {
+				if (!keyword) {
+					data.forEach((element, index, array) => {
+						this.rows[index + 1].style.display = "table-row";
+					});
+				} else {
+					data.forEach((element, index, array) => {
+						let showRow = false;
+						element.names.forEach((element2, index2, array2) => {
+							if (showRow) return;
+							if (!element2.indexOf(keyword.toLowerCase())) showRow = true;
+						});
+						this.rows[index + 1].style.display = showRow ? "table-row" : "none";
+					});
+				}
+			};
+			
+			let data = [];
+			data.init = function (url) {
+				let request = new XMLHttpRequest();
+				let self = this;
+				request.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						self.push.apply(self, JSON.parse(this.responseText));
+						table.init();
+					}
+				};
+				request.open("GET", url, true);
+				request.send();
+			}
+			
+			data.init("data.json");
+		</script>
+	</body>
+</html>
