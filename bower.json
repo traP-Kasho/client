@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/traP-Kasho/client",
+  "authors": [
+    "Azon <syu.takayama@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "skyblue": "^1.0.4"
+  }
+}
