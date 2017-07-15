@@ -15,7 +15,7 @@ table.init = function () {
 		newCell.appendChild(document.createTextNode(element.displayName));
 		let reputation = element.scores.positive / (element.scores.positive + element.scores.negative);
 		newCell = newRow.insertCell(-1);
-		newCell.appendChild(document.createTextNode(reputation.toString()));
+		newCell.appendChild(document.createTextNode(reputation.toFixed(4)));
 		let reputationString;
 		let reputationIcon = document.createElement("span");
 		reputationIcon.className = "icon-like2";
