@@ -17,13 +17,29 @@ table.init = function () {
 		newCell = newRow.insertCell(-1);
 		newCell.appendChild(document.createTextNode(reputation.toString()));
 		let reputationString;
-		if (reputation < 0.1) reputationString = "圧倒的に不評";
-		else if (reputation < 0.35) reputationString = "ほぼ不評";
-		else if (reputation < 0.65) reputationString = "賛否両論";
-		else if (reputation < 0.9) reputationString = "ほぼ好評";
-		else reputaitonString = "圧倒的に好評";
+		let reputationIcon = document.createElement("span");
+		reputationIcon.className = "icon-like2";
+		if (reputation < 0.1) {
+			reputationString = "圧倒的に不評";
+			reputationIcon.className += " rotate-180deg";
+		}
+		else if (reputation < 0.35) {
+			reputationString = "ほぼ不評";
+			reputationIcon.className += " rotate-180deg";
+		}
+		else if (reputation < 0.65) {
+			reputationString = "賛否両論";
+			reputationIcon.className += " spin";
+		}
+		else if (reputation < 0.9) {
+			reputationString = "ほぼ好評";
+		}
+		else {
+			reputationString = "圧倒的に好評";
+		}
 		newCell = newRow.insertCell(-1);
 		newCell.appendChild(document.createTextNode(reputationString));
+		newCell.appendChild(reputationIcon);
 		newCell = newRow.insertCell(-1);
 		newCell.appendChild(document.createTextNode("詳しく見る"));
 	});
