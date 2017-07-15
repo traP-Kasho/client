@@ -1,11 +1,11 @@
 "use strict";
 
-let searchBox = document.getElementById("searchBox");
+//let searchBox_ = document.getElementById("searchBox");
 searchBox.init = function () {
 	this.addEventListener("keyup", () => table.select(this.value));
 };
 
-let table = document.getElementById("table");
+//let table = document.getElementById("table");
 table.init = function () {
 	this.deleteRow(1);
 	data.forEach((element, index, array) => {
