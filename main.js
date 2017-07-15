@@ -16,6 +16,14 @@ table.init = function () {
 		let reputation = element.scores.positive / (element.scores.positive + element.scores.negative);
 		newCell = newRow.insertCell(-1);
 		newCell.appendChild(document.createTextNode(reputation.toString()));
+		let reputationString;
+		if (reputation < 0.1) reputationString = "圧倒的に不評";
+		else if (reputation < 0.35) reputationString = "ほぼ不評";
+		else if (reputation < 0.65) reputationString = "賛否両論";
+		else if (reputation < 0.9) reputationString = "ほぼ好評";
+		else reputaitonString = "圧倒的に好評";
+		newCell = newRow.insertCell(-1);
+		newCell.appendChild(document.createTextNode(reputationString));
 		newCell = newRow.insertCell(-1);
 		newCell.appendChild(document.createTextNode("詳しく見る"));
 	});
