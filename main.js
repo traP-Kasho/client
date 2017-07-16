@@ -55,7 +55,7 @@ table.select = function (keyword) {
 			let showRow = false;
 			element.names.forEach((element2, index2, array2) => {
 				if (showRow) return;
-				if (!element2.indexOf(keyword.toLowerCase())) showRow = true;
+				if (!element2.indexOf(keyword.toUpperCase())) showRow = true;
 			});
 			this.rows[index + 1].style.display = showRow ? "table-row" : "none";
 		});
